@@ -1,7 +1,6 @@
 import { Address, call, callerHasWriteAccess } from '@massalabs/massa-as-sdk';
 import { Args } from '@massalabs/as-types';
 
-
 /**
  * This function is meant to be called only one time: when the contract is deployed.
  */
@@ -16,9 +15,8 @@ export function constructor(binaryArgs: StaticArray<u8>): StaticArray<u8> {
   return [];
 }
 
-
 /**
- * Call the increment function of counter contract
+ * Call the constructor function of counter contract
  *
  * @param binaryArgs - The address of the counter contract encoded with `Args` and the increment arg
  * @returns empty array
@@ -29,11 +27,6 @@ function callCounterContract(binaryArgs: StaticArray<u8>): StaticArray<u8> {
     args.nextString().expect('Address argument is missing or invalid'),
   );
 
-  call(
-    address,
-    'increment',
-    new Args().add(args.nextU32().expect('increment argument is missing')),
-    0,
-  );
+  call(address, 'constructor', new Args(), 0);
   return [];
 }
